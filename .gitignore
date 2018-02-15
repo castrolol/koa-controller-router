@@ -1,6 +1,10 @@
 
 # Created by https://www.gitignore.io/api/node,visualstudiocode
 
+# build folder
+
+dist/
+
 ### Node ###
 # Logs
 logs
@@ -61,7 +65,6 @@ typings/
 # dotenv environment variables file
 .env
 
-dist
 
 ### VisualStudioCode ###
 .vscode/*
