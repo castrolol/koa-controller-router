@@ -2,7 +2,9 @@
 
 [include]
 
-[libs]
+[libs] 
+./flow-typed/types.js
+./flow-typed/system.js
 
 [lints]
 
