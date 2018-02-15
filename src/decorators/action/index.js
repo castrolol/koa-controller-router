@@ -28,7 +28,7 @@ export function get(route: string = ""): MemberDecorator {
     key: string,
     descriptor: PropertyDescriptor
   ): PropertyDescriptor {
-    addToBag("GET", target, target[key], route);
+    addToBag("GET", target.constructor, target[key], route);
     return descriptor;
   };
 }
@@ -39,7 +39,7 @@ export function put(route: string = ""): MemberDecorator {
     key: string,
     descriptor: PropertyDescriptor
   ): PropertyDescriptor {
-    addToBag("PUT", target, target[key], route);
+    addToBag("PUT", target.constructor, target[key], route);
     return descriptor;
   };
 }
@@ -50,7 +50,7 @@ export function del(route: string = ""): MemberDecorator {
     key: string,
     descriptor: PropertyDescriptor
   ): PropertyDescriptor {
-    addToBag("DELETE", target, target[key], route);
+    addToBag("DELETE", target.constructor, target[key], route);
     return descriptor;
   };
 }

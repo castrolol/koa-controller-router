@@ -2,6 +2,7 @@ import { expect } from "chai";
 import Path from "path-parser";
 import Router from "../src/router";
 import routerBag from "../src/route-bag";
+import { prefix, get } from "../src/decorators";
 
 describe("Router", () => {
   it("Should be init", () => {
@@ -57,7 +58,6 @@ describe("Router", () => {
 
     expect(act).to.throw();
   });
-
 
   it("Should not throw when has 2 identical routes with diferent methods", () => {
     routerBag.reset();
@@ -131,5 +131,19 @@ describe("Router", () => {
     const matched = router.resolveRoute("GET", "/controller/actions/5");
 
     expect(matched).to.be.null;
+  });
+
+  it("Should add the routes when use the decorators", () => {
+    routerBag.reset();
+
+    @prefix("some")
+    class SomeController {
+      @get("action/:param")
+      action() {}
+    }
+
+    const router = new Router();
+    
+    expect(router.paths["GET"][0].path).to.equal("/some/action/:param");
   });
 });
