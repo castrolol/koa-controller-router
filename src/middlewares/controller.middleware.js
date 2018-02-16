@@ -2,7 +2,6 @@
 import status from "../http/status-code";
 
 export function controllerMiddleware() {
-
   return async (ctx: MiddlewareContext, next: MiddlewareNext): Promise<void> => {
     const { method, path }: MiddlewareContext = ctx;
 
@@ -12,8 +11,14 @@ export function controllerMiddleware() {
         const { controller, action, params } = matchedRoute;
 
         ctx.status = status.ok;
-
-        const ctrl = new controller.constructor(ctx);
+        let ctrl: any;
+        try {
+          let ctrl = new (controller: any)(ctx);
+        } catch (e) {
+          if (e.toString().indexOf("is not a constructor") >= 0) {
+            ctrl = new controller.constructor(ctx);
+          }
+        }
 
         const result = action.apply(ctrl, params || []);
 

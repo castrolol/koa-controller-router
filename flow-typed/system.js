@@ -1,6 +1,6 @@
 // @flow
 type Constructor = { 
-  constructor: Object,
+  constructor: Function,
   $prefix?: string,  
 }
 
