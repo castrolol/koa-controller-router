@@ -18,7 +18,7 @@ export function controllerMiddleware() {
           if (e.toString().indexOf("is not a constructor") >= 0) {
             ctrl = new controller.constructor(ctx);
           }
-        }
+        } 
 
         const result = action.apply(ctrl, params || []);
 
