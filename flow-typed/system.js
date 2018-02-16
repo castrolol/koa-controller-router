@@ -1,4 +1,9 @@
-type Constructor = Function
+// @flow
+type Constructor = { 
+  constructor: Object,
+  $prefix?: string,  
+}
+
 type PropertyDescriptor = {
   configurable?: boolean,
   enumerable?: boolean,
@@ -6,6 +11,10 @@ type PropertyDescriptor = {
   writable?: boolean,
   get: () => mixed,
   set: (v: mixed) => void
-}; 
+};
 type ClassDecorator = (constructor: Constructor) => PropertyDescriptor | void;
-type MemberDecorator = (target: Constructor, key: string, descriptor: PropertyDescriptor) => PropertyDescriptor | void;
+type MemberDecorator = (
+  target: Constructor,
+  key: string,
+  descriptor: PropertyDescriptor
+) => PropertyDescriptor | void;
