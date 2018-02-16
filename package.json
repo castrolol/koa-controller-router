@@ -7,7 +7,7 @@
     "dist"
   ],
   "scripts": {
-    "test": "mocha --compilers  js:babel-core/register ./test/**/*.test.js",
+    "test": "mocha --compilers  js:babel-core/register --require babel-polyfill  ./test/**/*.test.js",
     "init": "mkdir dist",
     "clean": "rm -rf dist",
     "prebuild": "npm run clean && npm run init && flow check ",
@@ -40,6 +40,8 @@
   },
   "dependencies": {
     "path-parser": "^3.0.1",
+    "sinon": "^4.3.0",
+    "sinon-chai": "^2.14.0",
     "uuid": "^3.2.1"
   }
 }
