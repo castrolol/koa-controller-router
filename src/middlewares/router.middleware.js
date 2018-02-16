@@ -2,7 +2,7 @@
 import Router from "../router";
 import status from "../http/status-code";
 
-function controllerRouterMiddleware() {
+export function routerMiddleware() {
   const router = new Router();
 
   return async (ctx: MiddlewareContext, next: MiddlewareNext): Promise<void> => {
@@ -27,4 +27,3 @@ function controllerRouterMiddleware() {
   };
 }
 
-export default controllerRouterMiddleware;

@@ -1,27 +1,21 @@
 {
   "name": "koa-route-controller",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "A middleware kits to create routes and controllers with koa.js",
-  "main": "index.js",
-  "files": [
-    "dist"
-  ],
+  "main": "dist/index.js",
+  "files": ["dist", "src"],
   "scripts": {
-    "test": "mocha --compilers  js:babel-core/register --require babel-polyfill  ./test/**/*.test.js",
+    "test":
+      "mocha --compilers  js:babel-core/register --require babel-polyfill  ./test/**/*.test.js",
     "init": "mkdir dist",
     "clean": "rm -rf dist",
     "prebuild": "npm run clean && npm run init && flow check ",
-    "build": "babel ./src -d ./dist ",
+    "build": "babel ./src -d ./dist --source-maps ",
     "start": "npm run dev",
     "pretest": "npm run build",
     "dev": "npm test -- -w"
   },
-  "keywords": [
-    "koa",
-    "controller",
-    "route",
-    "router"
-  ],
+  "keywords": ["koa", "controller", "route", "router"],
   "author": "castrolol",
   "license": "ISC",
   "devDependencies": {
@@ -41,7 +35,7 @@
     "sinon-chai": "^2.14.0"
   },
   "dependencies": {
-    "path-parser": "^3.0.1", 
+    "path-parser": "^3.0.1",
     "uuid": "^3.2.1"
   }
 }
