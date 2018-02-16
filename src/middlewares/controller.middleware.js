@@ -13,12 +13,12 @@ export function controllerMiddleware() {
         ctx.status = status.ok;
         let ctrl: any;
         try {
-           ctrl = new (controller: any)(ctx);
+          ctrl = new (controller: any)(ctx);
         } catch (e) {
           if (e.toString().indexOf("is not a constructor") >= 0) {
             ctrl = new controller.constructor(ctx);
           }
-        } 
+        }
 
         const result = action.apply(ctrl, params || []);
 
