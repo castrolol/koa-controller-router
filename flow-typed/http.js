@@ -5,7 +5,7 @@ type Uuid = string;
 
 type HttpMethod = "POST" | "GET" | "PUT" | "DELETE" | "OPTION" | "HEAD";
 
-type HttpStatusCode = 404 | 200;
+type HttpStatusCode = 200 | 200 | 201 | 400 | 404 | 500;
 
 type RoutePath = {
   id?: Uuid,
@@ -28,5 +28,5 @@ type Route = {
 type RouteResult = {
   action: Function,
   controller: Controller,
-  params: ?ParamsDictionary
+  params: ?(ParamsDictionary[])
 };

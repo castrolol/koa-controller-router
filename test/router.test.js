@@ -96,7 +96,7 @@ describe("Router", () => {
     const matched = router.resolveRoute("POST", "/controller/action/5");
 
     expect(matched).to.exist;
-    expect(matched.params).to.deep.equal({ id: "5" });
+    expect(matched.params).to.deep.equal([{ id: "5" }]);
   });
 
   it("Should fail to resolve an non-existent url", () => {

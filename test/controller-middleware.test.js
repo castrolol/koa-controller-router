@@ -39,7 +39,7 @@ describe("controller  middleware", () => {
       matchedRoute: {
         action,
         controller: {},
-        params: { id: "15", nome: "azul-marinho" }
+        params: [{ id: "15", nome: "azul-marinho" }]
       }
     };
     const middleware = controllerMiddleware();
@@ -48,7 +48,7 @@ describe("controller  middleware", () => {
 
     expect(ctx.status).to.equal(200);
     expect(next).to.be.calledOnce;
-    expect(action).to.be.calledWith(ctx.matchedRoute.params);
+    expect(action).to.be.calledWith(ctx.matchedRoute.params[0]);
   });
 
   it("Should set internal server error, when throws", async () => {
@@ -60,7 +60,7 @@ describe("controller  middleware", () => {
           throw new Error("💩");
         },
         controller: {},
-        params: { id: "15", nome: "azul-mariwnho" }
+        params: [{ id: "15", nome: "azul-mariwnho" }]
       }
     };
     const middleware = controllerMiddleware();

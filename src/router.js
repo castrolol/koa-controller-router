@@ -50,7 +50,7 @@ class Router {
     pathMatched = {
       controller,
       action,
-      params
+      params: [params]
     };
 
     return pathMatched;
@@ -61,23 +61,21 @@ class Router {
 
     if (!paths) return null;
 
-    const matched: ?RouteResult = paths
-      .map((route: Route) => this._filterRoute(route, path))
-      .filter((result: ?RouteResult) => result != null)[0] || null;
+    const matched: ?RouteResult =
+      paths
+        .map((route: Route) => this._filterRoute(route, path))
+        .filter((result: ?RouteResult) => result != null)[0] || null;
 
     return matched;
   }
 
-  allowMethod(method: ?HttpMethod){
+  allowMethod(method: ?HttpMethod) {
+    if (!method) return false;
 
-    if(!method) return false;
-
-    if(method in this.paths) return true;
+    if (method in this.paths) return true;
 
     return false;
-
   }
-
 }
 
 export default Router;

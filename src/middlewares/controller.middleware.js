@@ -2,7 +2,7 @@
 import Router from "../router";
 import status from "../http/status-code";
 
-function controllerRouterMiddleware() {
+function controllerMiddleware() {
   const router = new Router();
 
   return async (ctx: MiddlewareContext, next: MiddlewareNext): Promise<void> => {
@@ -14,8 +14,11 @@ function controllerRouterMiddleware() {
         const { controller, action, params } = matchedRoute;
 
         ctx.status = status.ok;
+        
+        const ctrl = new controller.constructor(ctx);
 
-        const result = action.call(controller, params);
+        const result = action.apply(ctrl, params || []);
+
         if (result instanceof Promise) {
           await result;
         }
@@ -29,4 +32,4 @@ function controllerRouterMiddleware() {
   };
 }
 
-export default controllerRouterMiddleware;
+export default controllerMiddleware;

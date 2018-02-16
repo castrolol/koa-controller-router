@@ -1,6 +1,7 @@
 type Status = {
   ok: HttpStatusCode,
   noContent: HttpStatusCode,
+  badRequest: HttpStatusCode,
   notFound: HttpStatusCode,
   internalServerError: HttpStatusCode
 };
@@ -8,6 +9,7 @@ type Status = {
 const status: Status = {
   ok: 200,
   noContent: 201,
+  badRequest: 400,
   notFound: 404,
   internalServerError: 500
 };
