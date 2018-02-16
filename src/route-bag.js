@@ -13,8 +13,8 @@ export class RouteBag {
     this._routes = [];
   }
 
-  addAction(routeAction: RouteAction): Uuid {
-    const id = uuid.v4();
+  addAction(routeAction: Route): Uuid {
+    const id: string = uuid.v4();
 
     this._routes.push({
       ...routeAction,

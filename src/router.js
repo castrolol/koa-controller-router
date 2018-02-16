@@ -1,3 +1,5 @@
+// @flow
+
 import routeBag from "./route-bag";
 import Path from "path-parser";
 
@@ -9,54 +11,73 @@ class Router {
 
     const routes = routeBag.routes;
 
-    routes.forEach(route => {
-      if (route.method in this.paths == false) {
-        this.paths[route.method] = [];
-      }
+    routes.forEach(route => this._initRoute(route));
+  }
 
-      let path = route.path;
+  _initRoute(route: Route) {
+    if (route.method in this.paths == false) {
+      this.paths[route.method] = [];
+    }
 
-      if (route.controller && "$prefix" in route.controller) {
-        path = "/" + route.controller.$prefix + "/" + path;
-      } else {
-        path = "/" + path;
-      }
+    let path = route.path;
 
-      const alreadyExists = this.paths[route.method].some(({ path: p }) => p == path);
+    if (route.controller && "$prefix" in route.controller && route.controller.$prefix) {
+      path = "/" + route.controller.$prefix + "/" + path;
+    } else {
+      path = "/" + path;
+    }
 
-      if(alreadyExists) throw new Error(`The route "${path}" already exists`);
+    const alreadyExists = this.paths[route.method].some(({ path: p }) => p == path);
 
-      this.paths[route.method].push({
-        ...route,
-        path,
-        matcher: new Path(path)
-      });
+    if (alreadyExists) throw new Error(`The route "${path}" already exists`);
+
+    this.paths[route.method].push({
+      ...route,
+      path,
+      matcher: new Path(path)
     });
   }
 
-  resolveRoute(method, path) {
+  _filterRoute(route: Route, path: string): ?RouteResult {
+    const { matcher, controller, action }: Route = route;
+
+    let pathMatched: ?RouteResult = null;
+
+    const params: ?ParamsDictionary = matcher && matcher.test(path, { trailingSlash: true });
+
+    if (params == null) return null;
+
+    pathMatched = {
+      controller,
+      action,
+      params
+    };
+
+    return pathMatched;
+  }
+
+  resolveRoute(method: HttpMethod, path: string): ?RouteResult {
     const paths = this.paths[method];
 
     if (!paths) return null;
 
-    let pathMatched = null;
+    const matched: ?RouteResult = paths
+      .map((route: Route) => this._filterRoute(route, path))
+      .filter((result: ?RouteResult) => result != null)[0] || null;
 
-    const matched = paths.some(({ matcher, controller, action }: Route) => {
-      const params = matcher.test(path, { trailingSlash: true });
-
-      if (params == null) return false;
-
-      pathMatched = {
-        controller,
-        action,
-        params
-      };
-
-      return true;
-    });
-
-    return pathMatched;
+    return matched;
   }
+
+  allowMethod(method: ?HttpMethod){
+
+    if(!method) return false;
+
+    if(method in this.paths) return true;
+
+    return false;
+
+  }
+
 }
 
 export default Router;

@@ -7,7 +7,7 @@ function addToBag(method: HttpMethod, controller: Constructor, action: Function,
     action,
     controller,
     path,
-    method
+    method 
   });
 }
 
