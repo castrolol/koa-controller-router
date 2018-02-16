@@ -1,9 +1,7 @@
 // @flow
-import Router from "../router";
 import status from "../http/status-code";
 
 export function controllerMiddleware() {
-  const router = new Router();
 
   return async (ctx: MiddlewareContext, next: MiddlewareNext): Promise<void> => {
     const { method, path }: MiddlewareContext = ctx;

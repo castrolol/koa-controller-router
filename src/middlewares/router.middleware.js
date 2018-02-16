@@ -3,10 +3,14 @@ import Router from "../router";
 import status from "../http/status-code";
 
 export function routerMiddleware() {
-  const router = new Router();
+  let router = null;
 
   return async (ctx: MiddlewareContext, next: MiddlewareNext): Promise<void> => {
     const { method, path }: MiddlewareContext = ctx;
+
+    if(router == null){
+      router = new Router();
+    }
 
     ctx.status = status.notFound;
 
