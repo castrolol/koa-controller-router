@@ -143,7 +143,21 @@ describe("Router", () => {
     }
 
     const router = new Router();
-    
+
     expect(router.paths["GET"][0].path).to.equal("/some/action/:param");
+  });
+
+  it("Should add the routes when use the decorators, with empty last slash", () => {
+    routerBag.reset();
+
+    @prefix("some")
+    class SomeController {
+      @get()
+      action() {}
+    }
+
+    const router = new Router();
+
+    expect(router.paths["GET"][0].path).to.equal("/some");
   });
 });

@@ -1,6 +1,6 @@
 {
   "name": "koa-route-controller",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "A middleware kits to create routes and controllers with koa.js",
   "main": "dist/index.js",
   "files": ["dist", "src"],

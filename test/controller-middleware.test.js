@@ -1,7 +1,7 @@
 import chai, { expect } from "chai";
 import sinonChai from "sinon-chai";
 import { spy } from "sinon";
-import controllerMiddleware from "../src/middlewares/controller.middleware";
+import { controllerMiddleware } from "../src/middlewares/controller.middleware";
 import { get, prefix, post } from "../src/decorators";
 import routeBag from "../src/route-bag";
 

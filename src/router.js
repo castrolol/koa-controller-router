@@ -27,6 +27,11 @@ class Router {
       path = "/" + path;
     }
 
+    if (path.length > 1 && path.endsWith("/")) {
+      path = path.replace(/\/{1,}$/i, "");
+      if (!path) path = "/";
+    }
+
     const alreadyExists = this.paths[route.method].some(({ path: p }) => p == path);
 
     if (alreadyExists) throw new Error(`The route "${path}" already exists`);

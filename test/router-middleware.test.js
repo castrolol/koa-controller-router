@@ -1,7 +1,7 @@
 import chai, { expect } from "chai";
 import sinonChai from "sinon-chai";
 import { spy } from "sinon";
-import routerMiddleware from "../src/middlewares/router.middleware";
+import { routerMiddleware } from "../src/middlewares/router.middleware";
 import { get, prefix, post } from "../src/decorators";
 import routeBag from "../src/route-bag";
 
@@ -64,5 +64,21 @@ describe("router middleware", () => {
   });
 
 
+  it("Should set no content, on match route with empty action route", async () => {
+    @prefix("foo")
+    class SomeController {
+      @post()
+      action() {}
+    }
 
+    const next = spy();
+    const ctx = { method: "POST", path: "/foo" };
+    const middleware = routerMiddleware();
+
+    await middleware(ctx, next);
+
+    expect(ctx.status).to.equal(201);
+    expect(next).to.be.calledOnce;
+    expect(ctx.matchedRoute).to.exist;
+  });
 });
