@@ -20,20 +20,8 @@ function controllerRouterMiddleware() {
       return next();
     }
 
-    try {
-      const { controller, action, params } = matched;
-
-      ctx.status = status.ok;
-
-      const result = action.call(controller, params);
-
-      if (result instanceof Promise) {
-        await result;
-      }
-    } catch (error) {
-        console.error(error);
-      ctx.status = status.internalServerError;
-    }
+    ctx.status = status.noContent;
+    ctx.matchedRoute = matched;
 
     return next();
   };

@@ -1,7 +1,8 @@
 type MiddlewareContext = {
   method: HttpMethod,
   path: string,
-  status: HttpStatusCode
+  status: HttpStatusCode,
+  matchedRoute?: RouteResult,
 };
 
 type MiddlewareNext = () => Promise<*>;
